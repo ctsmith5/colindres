@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/exterior-home.jpeg')" }}
+        style={{ backgroundImage: "url('https://firebasestorage.googleapis.com/v0/b/ludicrousapps-c1ea7.firebasestorage.app/o/Colindres%2Fexterior-home.jpeg?alt=media')" }}
       />
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/60" />
