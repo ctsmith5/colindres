@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Cross, Heart } from "lucide-react";
+import { useLang } from "../context/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -11,6 +12,8 @@ const fadeUp = {
 };
 
 export default function About() {
+  const { t } = useLang();
+
   return (
     <section id="about" className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -24,18 +27,14 @@ export default function About() {
             custom={0}
           >
             <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
-              About <span className="text-orange-500">Colindres Home Repair</span>
+              {t("aboutHeading")}
+              <span className="text-orange-500">{t("aboutHeadingAccent")}</span>
             </h2>
             <p className="mb-4 text-lg leading-relaxed text-gray-600">
-              Led by Raul Colindres, our team brings years of hands-on experience in
-              residential construction and home repair. From structural framing to
-              finish work, we approach every project with the same dedication and
-              attention to detail — because your home deserves nothing less.
+              {t("aboutP1")}
             </p>
             <p className="text-lg leading-relaxed text-gray-600">
-              Based in the Raleigh area, we serve homeowners throughout the Triangle
-              with honest pricing, reliable timelines, and craftsmanship that speaks
-              for itself.
+              {t("aboutP2")}
             </p>
           </motion.div>
 
@@ -52,21 +51,20 @@ export default function About() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-white">
                 <Cross size={24} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Built on Faith</h3>
+              <h3 className="text-2xl font-bold text-gray-900">
+                {t("aboutFaithTitle")}
+              </h3>
             </div>
             <p className="mb-6 text-lg leading-relaxed text-gray-700">
-              Our work is guided by our faith in God. We believe that every task —
-              big or small — is an opportunity to serve others with integrity,
-              honesty, and love. We don't just build homes; we build trust.
+              {t("aboutFaithBody")}
             </p>
             <blockquote className="border-l-4 border-orange-400 pl-4">
               <p className="text-lg italic text-gray-700">
-                "Whatever you do, work at it with all your heart, as working for the
-                Lord, not for human masters."
+                {t("aboutVerse")}
               </p>
               <footer className="mt-2 flex items-center gap-2 text-sm font-semibold text-orange-600">
                 <Heart size={14} />
-                Colossians 3:23
+                {t("aboutVerseRef")}
               </footer>
             </blockquote>
           </motion.div>

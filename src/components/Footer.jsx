@@ -1,6 +1,9 @@
 import { Phone, Heart } from "lucide-react";
+import { useLang } from "../context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLang();
+
   return (
     <footer className="bg-gray-900 py-12 text-gray-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -11,34 +14,34 @@ export default function Footer() {
               Colindres Home Repair
             </h3>
             <p className="text-sm leading-relaxed">
-              Quality residential construction and home repair services in the
-              Raleigh-Durham Triangle area. Built on faith, delivered with
-              excellence.
+              {t("footerTagline")}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="mb-3 font-semibold text-white">Quick Links</h4>
+            <h4 className="mb-3 font-semibold text-white">
+              {t("footerLinksTitle")}
+            </h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#about" className="transition hover:text-orange-400">
-                  About Us
+                  {t("footerAbout")}
                 </a>
               </li>
               <li>
                 <a href="#services" className="transition hover:text-orange-400">
-                  Services
+                  {t("footerServices")}
                 </a>
               </li>
               <li>
                 <a href="#gallery" className="transition hover:text-orange-400">
-                  Gallery
+                  {t("footerGallery")}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="transition hover:text-orange-400">
-                  Contact
+                  {t("footerContact")}
                 </a>
               </li>
             </ul>
@@ -46,7 +49,9 @@ export default function Footer() {
 
           {/* Contact & Faith */}
           <div>
-            <h4 className="mb-3 font-semibold text-white">Get in Touch</h4>
+            <h4 className="mb-3 font-semibold text-white">
+              {t("footerContactTitle")}
+            </h4>
             <a
               href="tel:9197978919"
               className="mb-4 flex items-center gap-2 text-orange-400 transition hover:text-orange-300"
@@ -57,16 +62,14 @@ export default function Footer() {
             <div className="mt-4 border-t border-gray-700 pt-4">
               <p className="flex items-center gap-1 text-sm italic text-gray-400">
                 <Heart size={14} className="text-orange-400" />
-                "Commit to the Lord whatever you do, and he will establish your
-                plans." — Proverbs 16:3
+                {t("footerVerse")}
               </p>
             </div>
           </div>
         </div>
 
         <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Colindres Home Repair. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} {t("footerCopyright")}
         </div>
       </div>
     </footer>

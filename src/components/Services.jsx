@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import services from "../data/services";
+import { useLang } from "../context/LanguageContext";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -11,6 +12,8 @@ const cardVariants = {
 };
 
 export default function Services() {
+  const { lang, t } = useLang();
+
   return (
     <section id="services" className="bg-gray-50 py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -22,16 +25,16 @@ export default function Services() {
           className="mb-14 text-center"
         >
           <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-            Our <span className="text-orange-500">Services</span>
+            {t("servicesHeading")}
+            <span className="text-orange-500">{t("servicesHeadingAccent")}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            From small repairs to full-scale remodels, we've got you covered with
-            reliable, quality craftsmanship.
+            {t("servicesSubheading")}
           </p>
         </motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map(({ title, description, Icon }, i) => (
+          {services[lang].map(({ title, description, Icon }, i) => (
             <motion.div
               key={title}
               variants={cardVariants}

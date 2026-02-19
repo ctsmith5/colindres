@@ -2,16 +2,19 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import gallery from "../data/gallery";
+import { useLang } from "../context/LanguageContext";
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState(null);
+  const { lang, t } = useLang();
+  const items = gallery[lang];
 
   const open = (i) => setLightbox(i);
   const close = () => setLightbox(null);
   const prev = () =>
-    setLightbox((c) => (c === 0 ? gallery.length - 1 : c - 1));
+    setLightbox((c) => (c === 0 ? items.length - 1 : c - 1));
   const next = () =>
-    setLightbox((c) => (c === gallery.length - 1 ? 0 : c + 1));
+    setLightbox((c) => (c === items.length - 1 ? 0 : c + 1));
 
   return (
     <section id="gallery" className="bg-white py-20">
@@ -24,15 +27,16 @@ export default function Gallery() {
           className="mb-14 text-center"
         >
           <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-            Our <span className="text-orange-500">Work</span>
+            {t("galleryHeading")}
+            <span className="text-orange-500">{t("galleryHeadingAccent")}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            See the quality and care we put into every project.
+            {t("gallerySubheading")}
           </p>
         </motion.div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {gallery.map((img, i) => (
+          {items.map((img, i) => (
             <motion.div
               key={img.src}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -70,7 +74,7 @@ export default function Gallery() {
             <button
               onClick={close}
               className="absolute top-4 right-4 text-white hover:text-orange-400"
-              aria-label="Close lightbox"
+              aria-label={t("galleryClose")}
             >
               <X size={32} />
             </button>
@@ -80,7 +84,7 @@ export default function Gallery() {
                 prev();
               }}
               className="absolute left-4 text-white hover:text-orange-400"
-              aria-label="Previous image"
+              aria-label={t("galleryPrev")}
             >
               <ChevronLeft size={40} />
             </button>
@@ -90,7 +94,7 @@ export default function Gallery() {
                 next();
               }}
               className="absolute right-4 text-white hover:text-orange-400"
-              aria-label="Next image"
+              aria-label={t("galleryNext")}
             >
               <ChevronRight size={40} />
             </button>
@@ -100,13 +104,13 @@ export default function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
-              src={gallery[lightbox].src}
-              alt={gallery[lightbox].alt}
+              src={items[lightbox].src}
+              alt={items[lightbox].alt}
               className="max-h-[85vh] max-w-full rounded-lg object-contain"
               onClick={(e) => e.stopPropagation()}
             />
             <p className="absolute bottom-6 text-lg font-semibold text-white">
-              {gallery[lightbox].caption}
+              {items[lightbox].caption}
             </p>
           </motion.div>
         )}

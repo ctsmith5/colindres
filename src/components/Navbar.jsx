@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
-
-const links = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLang } from "../context/LanguageContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, toggleLang } = useLang();
+
+  const links = [
+    { label: t("navAbout"), href: "#about" },
+    { label: t("navServices"), href: "#services" },
+    { label: t("navGallery"), href: "#gallery" },
+    { label: t("navContact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -26,15 +28,23 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#"
-            className={`text-xl font-bold transition-colors ${
-              scrolled ? "text-orange-600" : "text-white"
-            }`}
-          >
-            Colindres Home Repair
-          </a>
+          {/* Logo + Language toggle */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              className={`text-xl font-bold transition-colors ${
+                scrolled ? "text-orange-600" : "text-white"
+              }`}
+            >
+              Colindres Home Repair
+            </a>
+            <button
+              onClick={toggleLang}
+              className="inline-flex items-center rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+            >
+              {t("langToggle")}
+            </button>
+          </div>
 
           {/* Desktop links */}
           <div className="hidden items-center gap-8 md:flex">
@@ -54,7 +64,7 @@ export default function Navbar() {
               className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
             >
               <Phone size={16} />
-              (919) 797-8919
+              {t("navPhone")}
             </a>
           </div>
 
@@ -88,7 +98,7 @@ export default function Navbar() {
               className="mt-2 flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-3 text-center font-semibold text-white"
             >
               <Phone size={16} />
-              (919) 797-8919
+              {t("navPhone")}
             </a>
           </div>
         </div>

@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, CheckCircle } from "lucide-react";
 import { submitContactForm } from "../utils/contact";
+import { useLang } from "../context/LanguageContext";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLang();
   const {
     register,
     handleSubmit,
@@ -31,10 +33,11 @@ export default function Contact() {
           className="mb-14 text-center"
         >
           <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-            Get in <span className="text-orange-500">Touch</span>
+            {t("contactHeading")}
+            <span className="text-orange-500">{t("contactHeadingAccent")}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Ready to start your project? Contact us for a free estimate.
+            {t("contactSubheading")}
           </p>
         </motion.div>
 
@@ -47,7 +50,7 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <h3 className="mb-6 text-2xl font-bold text-gray-900">
-              Contact Information
+              {t("contactInfoTitle")}
             </h3>
             <div className="space-y-6">
               <a
@@ -69,24 +72,23 @@ export default function Contact() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
                   <MapPin size={24} />
                 </div>
-                Raleigh, NC &mdash; Serving the Triangle
+                {t("contactLocation")}
               </div>
             </div>
 
             <div className="mt-10 rounded-xl border border-orange-100 bg-orange-50 p-6">
               <p className="text-lg font-semibold text-gray-900">
-                Prefer to talk?
+                {t("contactPreferTitle")}
               </p>
               <p className="mt-1 text-gray-600">
-                Give us a call anytime. We're happy to discuss your project over
-                the phone.
+                {t("contactPreferBody")}
               </p>
               <a
                 href="tel:9197978919"
                 className="mt-4 inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
               >
                 <Phone size={18} />
-                Call (919) 797-8919
+                {t("contactCallBtn")}
               </a>
             </div>
           </motion.div>
@@ -102,10 +104,10 @@ export default function Contact() {
               <div className="flex flex-col items-center justify-center rounded-xl border border-green-200 bg-green-50 py-16 text-center">
                 <CheckCircle size={48} className="mb-4 text-green-500" />
                 <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                  Message Sent!
+                  {t("contactSuccessTitle")}
                 </h3>
                 <p className="text-gray-600">
-                  We'll get back to you as soon as possible.
+                  {t("contactSuccessBody")}
                 </p>
               </div>
             ) : (
@@ -116,12 +118,12 @@ export default function Contact() {
                 {/* Name */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Name *
+                    {t("contactLabelName")}
                   </label>
                   <input
-                    {...register("name", { required: "Name is required" })}
+                    {...register("name", { required: t("contactErrorName") })}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
-                    placeholder="Your name"
+                    placeholder={t("contactPlaceholderName")}
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-red-500">
@@ -133,19 +135,19 @@ export default function Contact() {
                 {/* Email */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Email *
+                    {t("contactLabelEmail")}
                   </label>
                   <input
                     type="email"
                     {...register("email", {
-                      required: "Email is required",
+                      required: t("contactErrorEmail"),
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Enter a valid email",
+                        message: t("contactErrorEmailInvalid"),
                       },
                     })}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
-                    placeholder="you@example.com"
+                    placeholder={t("contactPlaceholderEmail")}
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-500">
@@ -157,48 +159,48 @@ export default function Contact() {
                 {/* Phone */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Phone
+                    {t("contactLabelPhone")}
                   </label>
                   <input
                     type="tel"
                     {...register("phone")}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
-                    placeholder="(555) 123-4567"
+                    placeholder={t("contactPlaceholderPhone")}
                   />
                 </div>
 
                 {/* Service */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Service Needed
+                    {t("contactLabelService")}
                   </label>
                   <select
                     {...register("service")}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
                   >
-                    <option value="">Select a service</option>
-                    <option value="painting">Painting</option>
-                    <option value="framing">Framing</option>
-                    <option value="drywall">Drywall</option>
-                    <option value="remodeling">Remodeling</option>
-                    <option value="flooring">Flooring</option>
-                    <option value="general">General Repair</option>
-                    <option value="other">Other</option>
+                    <option value="">{t("contactSelectDefault")}</option>
+                    <option value="painting">{t("contactSelectPainting")}</option>
+                    <option value="framing">{t("contactSelectFraming")}</option>
+                    <option value="drywall">{t("contactSelectDrywall")}</option>
+                    <option value="remodeling">{t("contactSelectRemodeling")}</option>
+                    <option value="flooring">{t("contactSelectFlooring")}</option>
+                    <option value="general">{t("contactSelectGeneral")}</option>
+                    <option value="other">{t("contactSelectOther")}</option>
                   </select>
                 </div>
 
                 {/* Message */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    Message *
+                    {t("contactLabelMessage")}
                   </label>
                   <textarea
                     {...register("message", {
-                      required: "Please describe your project",
+                      required: t("contactErrorMessage"),
                     })}
                     rows={4}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none"
-                    placeholder="Tell us about your project..."
+                    placeholder={t("contactPlaceholderMessage")}
                   />
                   {errors.message && (
                     <p className="mt-1 text-sm text-red-500">
@@ -213,11 +215,11 @@ export default function Contact() {
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-6 py-3.5 text-lg font-semibold text-white transition hover:bg-orange-600 disabled:opacity-60"
                 >
                   {isSubmitting ? (
-                    "Sending..."
+                    t("contactSending")
                   ) : (
                     <>
                       <Send size={20} />
-                      Send Message
+                      {t("contactSend")}
                     </>
                   )}
                 </button>
